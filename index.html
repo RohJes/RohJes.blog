@@ -1,1 +1,70 @@
-Hello World
+<style>
+
+body{
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+	background-color: #1e6091;
+}
+
+</style>
+
+
+
+<canvas style="width: 100%; height:100%;" id="canvas"> Your browser does not support html5 canvas. </canvas>
+
+<script>
+
+	var simSize = 40;
+
+	var pallet = [
+		"#d9ed92",
+		"#b5e48c",
+		"#99d98c",
+		"#76c893",
+		"#52b69a",
+		"#34a0a4",
+		"#168aad",
+		"#1a759f",
+		"#1e6091",
+		"#184e77"
+	];
+
+	var grid = [];
+
+	for(let I = 0; I < simSize; I++){
+		grid[I] = [];
+	}
+
+	for(let I = 0; I < simSize; I++){
+		grid[I][0] = Math.floor(Math.random()*3);
+	}
+
+	for(let y = 1; y < simSize; y++){
+		for(let I = 0; I < simSize; I++){
+			grid[I][y] = Math.min( grid[I][y-1] + Math.floor(Math.random()*3) , 8 );
+		}
+	}
+
+	console.log(grid);
+
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+
+	function draw(){
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+
+		for(let y = 0; y < simSize; y++){
+			for(let I = 0; I < simSize; I++){
+				ctx.fillStyle = pallet[grid[I][y]];
+				ctx.fillRect(Math.floor(canvas.width*I/simSize), Math.floor(canvas.width*y/simSize), Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize));
+			}
+		}
+	}
+
+	window.addEventListener("resize", draw);
+
+	draw();
+
+</script>
