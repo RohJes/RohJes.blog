@@ -67,19 +67,5 @@ body{
 
 	draw();
 
-	function tick(){
-	for(let y = simSize-1; y > 0; y--){
-		for(let I = 0; I < simSize; I++){
-			if(grid[I][y-1] < 8 && grid[I][y] > 1){
-				grid[I][y] += Math.floor(grid[I][y-1]/2);
-				grid[I][y-1] -= Math.floor(grid[I][y-1]/2);
-			}
-		}
-	}
-	draw();
-	}
-
-	tick();
-
 
 </script>
