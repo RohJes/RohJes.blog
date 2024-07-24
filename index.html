@@ -67,10 +67,19 @@ body{
 
 	draw();
 
+	var seed = 3456789;
+
+	function random(){
+	var k = ((16807 * seed)%2147483647);
+	seed = k;
+	return k/2147483647;
+	}
 	
 
 	function tick(){
-		for(let I = 0; I < 200; I++){
+		draw();
+		var scroll = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+		for(let I = 0; I < scroll; I++){
 		ctx.fillStyle = (["rgba(0.0,0.0,0.0,0.1)","gba(1.0,1.0,1.0,0.1)"])[Math.floor(Math.random()*2)];
 		ctx.fillRect(Math.floor(Math.random()*simSize)*Math.ceil(canvas.width/simSize), Math.floor(Math.random()*4000/(Math.ceil(canvas.width/simSize)))*Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize));
 	}
