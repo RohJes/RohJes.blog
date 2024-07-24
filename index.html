@@ -94,6 +94,11 @@ body{
 			}
 			}
 		}
+		if(scroll > 2000){
+			document.body.style.backgroundColor = "#9c6644";
+		} else {
+			document.body.style.backgroundColor = "#1e6091";
+		}
 	}
 
 	window.addEventListener("scroll", tick);
