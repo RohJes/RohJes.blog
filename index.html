@@ -67,4 +67,16 @@ body{
 
 	draw();
 
+	function tick(){
+	for(let y = simSize-1; y > 0; y--){
+		for(let I = 0; I < simSize; I++){
+			grid[I][y] = 0;
+		}
+	}
+	draw();
+	}
+
+	tick();
+
+
 </script>
