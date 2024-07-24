@@ -11,7 +11,7 @@ body{
 
 
 
-<canvas style="width: 100%; height:100%;" id="canvas"> Your browser does not support html5 canvas. </canvas>
+<canvas style="width: 100%; height:4000px;" id="canvas"> Your browser does not support html5 canvas. </canvas>
 
 <script>
 
@@ -53,7 +53,7 @@ body{
 
 	function draw(){
 		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		canvas.height = 4000;
 
 		for(let y = 0; y < simSize; y++){
 			for(let I = 0; I < simSize; I++){
@@ -66,6 +66,18 @@ body{
 	window.addEventListener("resize", draw);
 
 	draw();
+
+	
+
+	function tick(){
+		for(let I = 0; I < 200; I++){
+		ctx.fillStyle = (["rgba(0.0,0.0,0.0,0.1)","gba(1.0,1.0,1.0,0.1)"])[Math.floor(Math.random()*2)];
+		ctx.fillRect(Math.floor(Math.random()*simSize)*Math.ceil(canvas.width/simSize), Math.floor(Math.random()*4000/(Math.ceil(canvas.width/simSize)))*Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize));
+	}
+	}
+
+	window.addEventListener("scroll", tick);
+	
 
 
 </script>
