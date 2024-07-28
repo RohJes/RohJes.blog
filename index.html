@@ -83,13 +83,13 @@ body{
 		seed = 3456789;
 		
 		for(let I = 0; I < scroll*10; I++){
-			ctx.fillStyle = (["#9c6644","#7f5539","#b08968"])[Math.floor(random()*3)];
+			ctx.fillStyle = (["rgb(117,41,48)","rgb(117+10,41+10,48+10)","rgb(117-10,41-10,48-10)"])[Math.floor(random()*3)];
 			ctx.fillRect(Math.floor(random()*simSize)*Math.ceil(canvas.width/simSize), Math.floor(random()*4000/(Math.ceil(canvas.width/simSize)))*Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize));
 		}
 		} else {
 			if(scroll < 2000){
 			for(let I = 0; I < scroll; I++){
-				ctx.fillStyle = (["#9c6644","#7f5539","#b08968"])[Math.floor(random()*3)];
+				ctx.fillStyle = (["rgb(117,41,48)","rgb(117+10,41+10,48+10)","rgb(117-10,41-10,48-10)"])[Math.floor(random()*3)];
 				ctx.fillRect(Math.floor(random()*simSize)*Math.ceil(canvas.width/simSize), Math.floor(random()*4000/(Math.ceil(canvas.width/simSize)))*Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize), Math.ceil(canvas.width/simSize));
 			}
 			}
