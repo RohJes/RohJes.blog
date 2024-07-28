@@ -1,0 +1,236 @@
+<style>
+
+	body{
+		border: 0px;
+		margin: 0px;
+		padding: 0px;
+		background-color: #df949d;
+	}
+
+
+
+</style>
+<canvas id="canvas" style="width:100%; height:100%">
+
+</canvas>
+
+<!--
+<div style="margin: auto; width: 10vw; position: absolute; top: 20vh; left: 45vw; color:#ffffff">Articles</div>
+-->
+
+<div style="height: 500px;">
+
+</div>
+
+<script>
+
+	function mod(a, b){
+		if(a > 0)
+		{
+			return a%b;
+		} else {
+			return (b+a)%b;
+		}
+	}
+	
+	var pi = Math.pi;
+	
+	function len(a){
+		return Math.sqrt(a[0]*a[0] + a[1]*a[1] + a[2]*a[2]);
+	}
+
+	function add(a,b){
+		return [a[0]+b[0], a[1]+b[1], a[2]+b[2]];	
+	}
+
+	function sub(a,b){
+		return [a[0]+b[0], a[1]+b[1], a[2]+b[2]];	}
+
+	function mul(a,c){
+		return [a[0]*c, a[1]*c, a[2]*c];
+	}
+
+	function dot(a,b){
+		return a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
+	}
+
+	function normalize(a){
+		return [a[0]/len(a),a[1]/len(a),a[2]/len(a)]
+	}	
+
+
+	var vertexes = [];
+	var triangles = [];
+
+	var center = [-1.0, -1.0, 4.0];
+	var rot = 0;
+	
+	function pot(){
+		var size = vertexes.length;
+		for(let I = 0; I < 5; I++)
+		{ 	
+			var angle = Math.PI*2/5;
+			vertexes.push([center[0] + Math.cos(angle*I + rot)*0.5, center[1] - 0.4, center[2] + Math.sin(angle*I + rot)*0.4]);
+		}
+		for(let I = 0; I < 5; I++)
+		{
+			var angle = Math.PI*2/5;
+			vertexes.push([center[0] + Math.cos(angle*I + Math.PI*2/10 + rot)*0.8, center[1] + 0.5, center[2] + Math.sin(angle*I + Math.PI*2/10 + rot)*0.8]);
+		}
+		for(let I = 0; I < 5; I++){
+			triangles.push([size+I,size+mod(I+1,5),size+I+5,mul([247,239,218],1/350)]);
+		}
+		for(let I = 0; I < 5; I++){
+			triangles.push([size+I+5, size + mod(I-1,5) + 5, size + I,mul([247,239,218],1/350)]);
+		}
+		for(let I = 0; I < 5; I++)
+		{
+			var angle = Math.PI*2/5;
+			vertexes.push([center[0] + Math.cos(angle*I + Math.PI*2/10 + rot)*(0.65), center[1] + 0.4, center[2] + Math.sin(angle*I + Math.PI*2/10 + rot)*(0.65)]);
+		}
+		vertexes.push([center[0],center[1]+0.4,center[2]]);
+		for(let I = 0; I < 5; I++){
+			triangles.push([size+I+10, size + mod(I-1,5) + 10, size + 15,mul([111,94,79],1/350)]);
+		}
+	}
+
+	function flower(width){
+		var size = vertexes.length;
+		vertexes.push(add(center,[Math.cos(rot)*width,0.43,Math.sin(rot)*width]));
+		vertexes.push(add(center,[Math.cos(rot+Math.PI)*width,0.43,Math.sin(rot+Math.PI)*width]));
+		vertexes.push(add(center,[Math.cos(rot+Math.PI*0.5)*width,0.43,Math.sin(rot+Math.PI*0.5)*width]));
+		vertexes.push(add(center,[Math.cos(rot+Math.PI*1.5)*width,0.43,Math.sin(rot+Math.PI*1.5)*width]));
+		vertexes.push(add(center,[0,1,0]));
+		triangles.push([size,size+1,size+4,mul([151,151,106],1/350)]);
+		triangles.push([size+2,size+3,size+4,mul([151,151,106],1/350)]);
+		vertexes.push(add(center,[0,1,0]));
+		vertexes.push(add(center,[0,1-width,0]));
+		vertexes.push(add(center,[Math.cos(rot)*0.5,1.2+width,0]));
+		triangles.push([size+5,size+6,size+7,mul([151,151,106],1/350)]);
+		vertexes.push(add(center,[Math.cos(rot+Math.PI)*0.5,0.8,Math.sin(rot+Math.PI)*0.5]));
+		vertexes.push(add(center,[Math.cos(rot+1+Math.PI)*0.5,0.8,Math.sin(rot+1+Math.PI)*0.5]));
+		triangles.push([size+2,size+1,size+8,mul([151,151,106],1/350)]);
+		triangles.push([size+3,size+1,size+9,mul([151,151,106],1/350)]);
+		vertexes.push(add(center,[Math.cos(rot-0.18)*0.6,1.37+width,Math.sin(rot-0.18)*0.6])); /* petals */
+		vertexes.push(add(center,[Math.cos(rot+0.18)*0.6,1.37+width,Math.sin(rot-0.18)*0.6]));
+		triangles.push([size+7,size+10,size+11,mul([247,239,218],1/270)]);
+		vertexes.push(add(center,[Math.cos(rot-0.18)*0.6,1.03+width,Math.sin(rot-0.18)*0.6]));
+		vertexes.push(add(center,[Math.cos(rot+0.18)*0.6,1.03+width,Math.sin(rot-0.18)*0.6]));
+		triangles.push([size+7,size+12,size+13,mul([247,239,218],1/270)]);
+		vertexes.push(add(center,[Math.cos(rot+0.3)*0.6,1.3+width,Math.sin(rot+0.3)*0.6]));
+		vertexes.push(add(center,[Math.cos(rot+0.3)*0.6,1.1+width,Math.sin(rot+0.3)*0.6]));
+		triangles.push([size+7,size+14,size+15,mul([247,239,218],1/270)]);
+		vertexes.push(add(center,[Math.cos(rot-0.3)*0.6,1.3+width,Math.sin(rot-0.3)*0.6]));
+		vertexes.push(add(center,[Math.cos(rot-0.3)*0.6,1.1+width,Math.sin(rot-0.3)*0.6]));
+		triangles.push([size+7,size+16,size+17,mul([247,239,218],1/270)]);
+
+
+
+	}
+
+	function psuedoShadow(){
+		var size = vertexes.length;
+		var shadowVertexes = vertexes;
+		var translation = (a) => add(a,[0,1.4,0]); /* adding the height of the lowest thing, so now the smallest thing is at zero */
+		shadowVertexes = shadowVertexes.map(translation);
+		var flatten = (a) => [a[0]+Math.cos(Math.PI-0.6)*a[1],-1.4,a[2]+Math.sin(Math.PI-0.6)*a[1]];
+		shadowVertexes = shadowVertexes.map(flatten);
+		shadowVertexes.forEach(function(a){vertexes.push(a);});
+		var shadowTriangles = triangles;
+		shadowTriangles = shadowTriangles.map((a)=>[a[0]+size,a[1]+size,a[2]+size,mul([223,148,157],1/350)]);
+		shadowTriangles.forEach(function(a){triangles.push(a);});
+	}
+
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+
+
+	function average(a, b, c){
+		return mul(add(add(a,b), c), 1/3);
+	}
+
+	function shader(a){
+		var point = average(vertexes[a[0]],vertexes[a[1]],vertexes[a[2]]);
+		var normal = normalize(add(mul(point,-1),center));
+		var brightness = dot(normal ,normalize([-1,0,1]));
+		brightness = Math.sqrt(brightness/2+1);
+		var color = mul(a[3],brightness);
+		var ambience = dot(normal,normalize([0,-1,0]))/2+1;
+		/*color = add(color, mul([0.8,0.9,1.0], ambience*0.2)); */
+		return color;
+	}
+
+	function rgb(a){
+		return "rgb("+Math.floor(a[0]*255)+","+Math.floor(a[1]*255)+","+Math.floor(a[2]*255)+")";
+	}
+
+	function drawTriangle(a){
+		ctx.fillStyle = rgb(shader(a));
+		ctx.strokeStyle = ctx.fillStyle;
+		ctx.beginPath();
+		ctx.moveTo(vertexes[a[0]][0]/vertexes[a[0]][2] * (canvas.width/2) + (canvas.width/2), canvas.width-(vertexes[a[0]][1]/vertexes[a[0]][2] * (canvas.width/2) + (canvas.width/2)) - (canvas.width-canvas.height)/2);
+		ctx.lineTo(vertexes[a[1]][0]/vertexes[a[1]][2] * (canvas.width/2) + (canvas.width/2), canvas.width-(vertexes[a[1]][1]/vertexes[a[1]][2] * (canvas.width/2) + (canvas.width/2)) - (canvas.width-canvas.height)/2);
+		ctx.lineTo(vertexes[a[2]][0]/vertexes[a[2]][2] * (canvas.width/2) + (canvas.width/2), canvas.width-(vertexes[a[2]][1]/vertexes[a[2]][2] * (canvas.width/2) + (canvas.width/2)) - (canvas.width-canvas.height)/2);
+		ctx.fill();
+		ctx.moveTo(vertexes[a[0]][0]/vertexes[a[0]][2] * (canvas.width/2) + (canvas.width/2), canvas.width-(vertexes[a[0]][1]/vertexes[a[0]][2] * (canvas.width/2) + (canvas.width/2)) - (canvas.width-canvas.height)/2);
+		ctx.lineTo(vertexes[a[1]][0]/vertexes[a[1]][2] * (canvas.width/2) + (canvas.width/2), canvas.width-(vertexes[a[1]][1]/vertexes[a[1]][2] * (canvas.width/2) + (canvas.width/2)) - (canvas.width-canvas.height)/2);
+		ctx.lineTo(vertexes[a[2]][0]/vertexes[a[2]][2] * (canvas.width/2) + (canvas.width/2), canvas.width-(vertexes[a[2]][1]/vertexes[a[2]][2] * (canvas.width/2) + (canvas.width/2)) - (canvas.width-canvas.height)/2);
+		ctx.lineTo(vertexes[a[0]][0]/vertexes[a[0]][2] * (canvas.width/2) + (canvas.width/2), canvas.width-(vertexes[a[0]][1]/vertexes[a[0]][2] * (canvas.width/2) + (canvas.width/2)) - (canvas.width-canvas.height)/2);
+		ctx.stroke();
+	}
+	
+	function render(){
+		var ordered = triangles.sort(function(a, b){return (-len(average(vertexes[a[0]],vertexes[a[1]],vertexes[a[2]])) / 3) - (-len(average(vertexes[b[0]],vertexes[b[1]],vertexes[b[2]])) / 3)});
+		for(let I = 0; I < ordered.length; I++){
+		drawTriangle(ordered[I]);
+		}
+		}
+
+	function clearBuffers(){
+	while(vertexes.length>0){
+		vertexes.pop();
+	}
+	while(triangles.length>0){
+		triangles.pop();
+	}
+	}
+
+	var time = 0;
+
+	var rot1 = 0;
+
+	var rot2 = 0;
+
+	function main(){
+		time += 1/30;
+		const grad = ctx.createLinearGradient(0,0, 0,canvas.width/4);
+		grad.addColorStop(0, "#cfa4bd");
+		grad.addColorStop(1, "#df949d");
+		ctx.fillStyle = grad;
+		ctx.fillRect(0,0,canvas.width,canvas.width);
+		pot();
+		flower(0.1);
+		psuedoShadow();
+		render();
+		rotate();
+		clearBuffers();
+	}
+
+	main();
+
+	function rotate(){
+		rot = Math.pow(20,0-(time/10)+1)+rot1;
+	}
+
+	function scroll(){
+		rot1 = -window.scrollY/100;
+	}
+		
+	
+	window.setInterval(main, 10);
+
+	window.addEventListener("scroll", scroll);
+
+</script>
