@@ -296,9 +296,9 @@
           }
         };
         xhr.responseType = 'arraybuffer';
+        xhr.open('GET', "https://drive.google.com/uc?export=view&id=1v8hNLOrD72JIWMG2OAcvvIS6Sz50poP3");
         xhr.setRequestHeader('Access-Control-Allow-Origin','*');
         xhr.setRequestHeader('Access-Control-Allow-Methods','GET');
-        xhr.open('GET', "https://drive.google.com/uc?export=view&id=1v8hNLOrD72JIWMG2OAcvvIS6Sz50poP3");
         xhr.send();
       });
       })();
