@@ -1,0 +1,11 @@
+<div id="body">
+
+</div>
+
+<script>
+const html = (await (await fetch('https://wikipedia.com')).text()); // html as text
+const doc = new DOMParser().parseFromString(html, 'text/html');
+doc.title; doc.body;
+
+document.getElementById("body").innerHTML = html;
+</script>
